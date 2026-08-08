@@ -1,0 +1,134 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+<!DOCTYPE html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الإعدادات</title>
+<!-- Bootstrap -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+        background-color: #f8f9fa;
+        font-family: "Tajawal", sans-serif;
+}
+.settings-card {
+    margin-bottom: 20px;
+}
+.settings-card h5 {
+    color: #444;
+}
+</style>
+</head>
+<body>
+<div class="container mt-4">
+<h2 class="mb-4 text-center">الإعدادات</h2>
+<!-- معلومات الحساب -->
+<div class="card settings-card">
+<div class="card-body">
+    <h5 class="card-title">معلومات الحساب</h5>
+    <form>
+    <div class="mb-3">
+        <label class="form-label">الاسم</label>
+    <input type="text" class="form-control" placeholder="أدخل اسمك">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">البريد الإلكتروني</label>
+        <input type="email" class="form-control" placeholder="example@email.com">
+    </div>
+    <div class="mb-3">
+    <label class="form-label">كلمة المرور</label>
+    <input type="password" class="form-control" placeholder="••••••••">
+    </div>
+    <div class="mb-3">
+        <label class="form-label">الصورة الشخصية</label>
+        <input type="file" class="form-control">
+    </div>
+    <button class="btn btn-primary">تحديث</button>
+    </form>
+</div>
+</div>
+<!-- إعدادات اللغة -->
+<div class="card settings-card">
+<div class="card-body">
+    <h5 class="card-title">إعدادات اللغة</h5>
+    <select class="form-select">
+    <option value="ar">العربية</option>
+    <option value="en">English</option>
+    </select>
+</div>
+</div>
+<!-- الإشعارات -->
+<div class="card settings-card">
+<div class="card-body">
+    <h5 class="card-title">الإشعارات</h5>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="notif1" checked>
+        <label class="form-check-label" for="notif1">تفعيل الإشعارات</label>
+    </div>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="notif2">
+        <label class="form-check-label" for="notif2">التنبيهات عبر البريد</label>
+    </div>
+</div>
+</div>
+<!-- الأمان والخصوصية -->
+<div class="card settings-card">
+<div class="card-body">
+    <h5 class="card-title">الأمان والخصوصية</h5>
+    <div class="form-check">
+        <input class="form-check-input" type="checkbox" id="2fa">
+        <label class="form-check-label" for="2fa">تفعيل التحقق بخطوتين (2FA)</label>
+</div>
+<div class="mb-3 mt-2">
+        <label class="form-label">من يمكنه رؤية ملفي الشخصي</label>
+        <select class="form-select">
+        <option>الكل</option>
+        <option>الأصدقاء فقط</option>
+        <option>أنا فقط</option>
+    </select>
+    </div>
+</div>
+</div>
+<!-- إعدادات التطبيق -->
+<div class="card settings-card">
+<div class="card-body">
+    <h5 class="card-title">إعدادات التطبيق</h5>
+    <div class="form-check">
+    <input class="form-check-input" type="checkbox" id="darkmode">
+    <label class="form-check-label" for="darkmode">الوضع الليلي</label>
+    </div>
+    <div class="mb-3 mt-2">
+    <label class="form-label">حجم الخط</label>
+    <select class="form-select">
+        <option>صغير</option>
+        <option selected>عادي</option>
+        <option>كبير</option>
+    </select>
+    </div>
+</div>
+</div> 
+<!-- الدعم والمساعدة -->
+<div class="card settings-card">
+    <div class="card-body">
+<h5 class="card-title">الدعم والمساعدة</h5>
+<a href="/support" class="btn btn-outline-primary w-100 mb-2">التواصل مع الدعم الفني</a>
+<a href="/feedback" class="btn btn-outline-secondary w-100">إرسال ملاحظات</a>
+    </div>
+</div>
+
+<!-- تسجيل الخروج -->
+<div class="card settings-card">
+    <div class="card-body text-center">
+    <a href="{% url 'logout' %}" class="btn btn-danger w-100">تسجيل الخروج</a>
+    </div>
+</div>
+</div>
+
+<!-- Bootstrap JS -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

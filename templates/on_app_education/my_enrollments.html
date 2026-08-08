@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block title %}دوراتي{% endblock %}
+{% block content %}
+<h2>الدورات المسجلة</h2>
+<ul>
+{% for course in courses %}
+    <li><a href="{% url 'couse_detail' course.id %}">{{ course.title }}</a></li>
+{% empty %}
+    <li>لم تسجل في أي دورة بعد</li>
+{% endfor %}
+</ul>
+{% endblock %}

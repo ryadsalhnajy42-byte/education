@@ -1,0 +1,12 @@
+{% extends 'blog/base.html' %}
+{% block title %}دوراتي {% endblock %}
+{%block content%}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh; flex-direction: column; text-align: center;">
+<h2>الدورات المسجلة</h2>
+<ul>
+    {% for course in courses %}
+    <li><a href="{% url 'course_detail ' course.id%}">{{course.title}}</a></li>
+    {%empty%}
+    <li>لم تسجيل في اي دورة بعد</li>{% endfor %}
+</ul>
+{%endblock%}

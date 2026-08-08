@@ -1,0 +1,7 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ lecture.title }}{% endblock %}
+{% block content %}
+<h2>{{ lecture.title }}</h2>
+<iframe width="100%" height="400" src="{{ lecture.video_url }}" frameborder="0" allowfullscreen></iframe>
+<a href="{% url 'course_detail' course.id %}" class="btn btn-secondary mt-3">رجوع للدورة</a>
+{% endblock %}

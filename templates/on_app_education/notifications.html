@@ -1,0 +1,13 @@
+{% extends 'blog/base.html' %}
+{% block title %}الإشعارات{% endblock %}
+{% block content %}
+<div class="d-flex justify-content-center align-items-center" style="min-height: 80vh; flex-direction: column; text-align: center;">
+<h2>الإشعارات</h2>
+<ul>
+{% for note in notifications %}
+    <li>{{ note.message }} - {{ note.date_sent|date:"Y-m-d H:i" }}</li>
+{% empty %}
+    <li>لا توجد إشعارات حالياً</li>
+{% endfor %}
+</ul>
+{% endblock %}

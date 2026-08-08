@@ -1,0 +1,125 @@
+{% extends "blog/base.html" %}
+{% load static %}
+
+{% block content %}
+<div class="container mt-4">
+
+    <!-- 1. ترحيب بالمستخدم -->
+    <div class="mb-4 text-center">
+        <h2> مرحبًا يا {{ user.username }}! 👋</h2>
+        <p>اختر دورتك المفضلة وابدأ التعلم الآن</p>
+    </div>
+
+    <!-- 2. شريط البحث -->
+    <form method="GET" action="{% url 'home' %}" class="mb-5">
+        <div class="input-group">
+            <button class="btn btn-primary" type="submit">بحث</button>
+                
+            <input type="text" name="q" class="form-control" placeholder="ابحث عن دورة أو قسم..." value="{{ request.GET.q }}">
+        </div>
+    </form>
+
+    <!-- 3. فلترة الدورات -->
+    <div class="mb-4 d-flex gap-2 flex-wrap">
+        <select class="form-select w-auto" name="category">
+            <option value="">كل الأقسام</option>
+            <option value="">تقنيةالمعلومات </option>
+            <option value="beginner">نظم معلومات </option>
+            <option value="intermediate">طب الاسنان</option>
+            <option value="advanced">المختبرات </option>
+            {% for cat in categories %}
+            <option value="{{ cat.id }}" {% if request.GET.category == cat.id|stringformat:"s" %}selected{% endif %}>{{ cat.name }}</option>
+            {% endfor %}
+        </select>
+
+        <select class="form-select w-auto" name="level">
+            <option value="">كل المستويات</option>
+            <option value="beginner">مبتدئ</option>
+            <option value="intermediate">متوسط</option>
+            <option value="advanced">متقدم</option>
+        </select>
+    </div>
+
+    <!-- 4. عرض الدورات المتاحة -->
+    <h4 class="mb-3">الدورات المتاحة</h4>
+    <div class="row g-4">
+        {% for course in courses %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                {% if course.image %}
+                <img src="{{ course.image.url }}" class="card-img-top" alt="{{ course.title }}">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ course.title }}</h5>
+                    <p class="card-text">{{ course.description|truncatewords:20 }}</p>
+                    <p>المدة: {{ course.duration }} | السعر: {{ course.price }} USD</p>
+                    <a href="{% url 'course_detail' course.id %}" class="btn btn-primary w-100">عرض الدورة</a>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>لا توجد دورات متاحة حالياً.</p>
+        {% endfor %}
+    </div>
+
+    <!-- 5. الدورات المفضلة -->
+    <h4 class="mt-5 mb-3">الدورات المفضلة</h4>
+    <div class="row g-4">
+        {% for course in favorite_courses %}
+        <div class="col-md-3">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h6>{{ course.title }}</h6>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>لم تحفظ أي دورات بعد.</p>
+        {% endfor %}
+    </div>
+
+    <!-- 6. اقتراحات ذكية -->
+    <h4 class="mt-5 mb-3">اقتراحات لك</h4>
+    <div class="row g-4">
+        {% for course in recommended_courses %}
+        <div class="col-md-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body">
+                    <h5>{{ course.title }}</h5>
+                    <p>{{ course.description|truncatewords:15 }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <p>لا توجد اقتراحات حالياً.</p>
+        {% endfor %}
+    </div>
+
+    <!-- 7. الأقسام أو الفئات -->
+    <h4 class="mt-5 mb-3">الأقسام</h4>
+    <div class="d-flex gap-2 flex-wrap">
+        {% for cat in categories %}
+        <a href="{% url 'home' %}?category={{ cat.id }}" class="btn btn-outline-secondary">{{ cat.name }}</a>
+        {% endfor %}
+    </div>
+
+    <!-- 8. تنبيهات أو إشعارات -->
+    <h4 class="mt-5 mb-3">الإشعارات</h4>
+    <ul class="list-group">
+        {% for notif in notifications %}
+        <li class="list-group-item">{{ notif.message }} <small class="text-muted">{{ notif.date }}</small></li>
+        {% empty %}
+        <li class="list-group-item">لا توجد إشعارات جديدة.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- 9. روابط سريعة -->
+    <h4 class="mt-5 mb-3">روابط سريعة</h4>
+    <div class="d-flex gap-2 flex-wrap">
+        <a href="{% url 'profile' %}" class="btn btn-outline-primary">الملف الشخصي</a>
+        <a href="{% url 'settings' %}" class="btn btn-outline-success">الإعدادات</a>
+        <a href="{% url 'support' %}" class="btn btn-outline-warning">الدعم الفني</a>
+    </div>
+
+</div>
+{% endblock %}

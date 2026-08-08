@@ -1,0 +1,17 @@
+{% extends 'blog/base.html' %}
+{% block title %}{{ course.title }}{% endblock %}
+{% block content %}
+<h2>{{ course.title }}</h2>
+<p>{{ course.description }}</p>
+<p>مدة الدورة: {{ course.duration }} ساعة</p>
+<p>السعر: {{ course.price }} ريال</p>
+<h4>المحاضرات</h4>
+<ul>
+{% for lecture in lectures %}
+    <li><a href="{% url 'course_video' course.id lecture.id %}">{{ lecture.title }}</a></li>
+{% empty %}
+    <li>لا توجد محاضرات بعد</li>
+{% endfor %}
+</ul>
+<a href="{% url 'checkout' course.id %}" class="btn btn-success">الاشتراك</a>
+{% endblock %}
